@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const cors = require('cors');
+const {Protected} = require('./modules/Auth');
 
-const userRoute = require('./router/UserRoute'); 
+const taskRoute = require('./router/TaskRoute'); 
 const bodyParser = require('body-parser');
+const userController = require('./handlers/User');
 
 
 //database Connection    
@@ -25,7 +27,9 @@ app.use(cors()); //moiddleware
 app.use(express.json());
 
 //router
-app.use(userRoute); 
+app.use(taskRoute); 
+app.post('/user', userController.createUser);
+app.post('/signin', userController.signin);
 
 //listening
 app.listen(3001, () => {

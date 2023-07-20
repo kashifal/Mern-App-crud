@@ -1,6 +1,7 @@
 import axios from "axios"; 
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import client from "../axios.config";
 
 export default function Home() {
   const [people, setPeople] = useState([]);
@@ -14,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
-    axios
+    client
       .get("http://localhost:3001/tasks")
       .then((response) => {
         setPeople(response.data);
@@ -71,6 +72,10 @@ export default function Home() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 max-w-7xl py-16 mx-auto">
+      <div className="flex items-center gap-3">
+      <Link className="bg-orange-500 px-3 py-2 rounded-sm text-white" to='/signin'>Login</Link>
+      <Link className="bg-orange-500 px-3 py-2 rounded-sm text-white" to='/register'>Register</Link>
+      </div>
       <form onSubmit={formHandler} className="my-8 grid rounded px-6 py-8 grid-cols-1 gap-8 max-w-4xl mx-auto bg-gray-50">
         <div className="">
           <label htmlFor="title" className="py-2 text-lg block">
